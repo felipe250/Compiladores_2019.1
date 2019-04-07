@@ -1,0 +1,6 @@
+Scanner (Analisador Léxico)
+
+		Este módulo realiza o processo de fazer uma varredura caractere por caractere do programa 
+        fonte submetido pelo usuário, traduzido em símbolos léxicos chamados tokens. Neste módulo 
+        são reconhecidos todas as palavras reservadas, constantes, identificadores e qualquer outra 
+        palavra que pertença à linguagem adotada e ignorando brancos e tabs.
