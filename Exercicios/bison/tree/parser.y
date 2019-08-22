@@ -1,21 +1,3 @@
-Skip to content
- 
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@felipe250 
-0
-0 0 MarcosFortuna/CET-058-2019.1-
- Code  Issues 0  Pull requests 0  Projects 0  Wiki  Security  Insights
-CET-058-2019.1-/Exercicios/bison/tree/parser.y
-@MarcosFortuna MarcosFortuna inserção dos codigo do bison
-c04860b 5 days ago
-146 lines (122 sloc)  3.43 KB
-    
 %{
 /* Código C, use para #include, variáveis globais e constantes
  * este código ser adicionado no início do arquivo fonte em C
@@ -59,17 +41,21 @@ No* novo_no(char[50], No**, int);
 %type<simbolo> ADD
 %%
 /* Regras de Sintaxe */
+//Imprime a arvore completa (exp) e libera espaços alocados
 calc:
-    | calc exp EOL       { imprimir_arvore($2); } 
-exp: fator               
-   | exp ADD fator      {
+    | calc exp EOL      { imprimir_arvore($1); liberar_no($1);} 
+//Termo ou 
+exp: termo 
+   //expressão somando com um termo              
+   | exp ADD termo      {
                             No** filhos = (No**) malloc(sizeof(No*)*3);
                             filhos[0] = $1;
                             filhos[1] = novo_no("+", NULL, 0);
                             filhos[2] = $3;
                             $$ = novo_no("exp", filhos, 3);
                         }
-   | exp SUB fator      {
+   // expressao subtraindo termo
+   | exp SUB termo      {
                         No** filhos = (No**) malloc(sizeof(No*)*3);
                         filhos[0] = $1;
                         filhos[1] = novo_no("-", NULL, 0);
@@ -77,14 +63,17 @@ exp: fator
                         $$ = novo_no("exp", filhos, 3);
     }
    ;
-fator: termo            
-     | fator MUL termo  {                             
+//fator ou
+termo: fator
+     //termo multiplicando fator
+     | termo MUL fator  {                             
                             No** filhos = (No**) malloc(sizeof(No*)*3);
                             filhos[0] = $1;
                             filhos[1] = novo_no("*", NULL, 0);
                             filhos[2] = $3;
                             $$ = novo_no("termo", filhos, 3);}
-     | fator DIV termo  {                             
+     //termo dividindo fator
+     | termo DIV fator  {                             
                             No** filhos = (No**) malloc(sizeof(No*)*3);
                             filhos[0] = $1;
                             filhos[1] = novo_no("/", NULL, 0);
@@ -92,7 +81,7 @@ fator: termo
                             $$ = novo_no("termo", filhos, 3);
                             }
      ;
-termo: NUM {No** filhos = (No**) malloc(sizeof(No*));
+fator: NUM {No** filhos = (No**) malloc(sizeof(No*));
             filhos[0] = novo_no($1,NULL,0); 
             $$ = novo_no("fator", filhos, 1); }               
 %%
@@ -113,25 +102,13 @@ No* novo_no(char token[50], No** filhos, int num_filhos) {
     return no;
 }
 void imprimir_arvore(No* raiz) {
-    //if(raiz == NULL) { printf("#"); return; }
     printf("(%s)", raiz->token);
-    int i = 0;
+    int i;
     printf(" -> ");
-    while (i < raiz->num_filhos)
-    {  
+    for (i = 0; i < raiz->num_filhos; i++){  
         imprimir_arvore(raiz->filhos[i]);
-        if(raiz->filhos[i]->filhos == NULL) printf("#\n");
-        i++;
+        if(raiz->filhos[i]->filhos == NULL) printf("(null)\n");
     }
-   /* if(raiz == NULL) { printf("***"); return; }
-    printf("(%s)", raiz->token);
-    int i = 0;
-    while(raiz->filhos[i] != NULL){
-        printf("->");
-        imprimir_arvore(raiz->filhos[i]);
-        
-    }
-    */
 }
 int main(int argc, char** argv) {
     yyparse();
@@ -139,15 +116,3 @@ int main(int argc, char** argv) {
 yyerror(char *s) {
     fprintf(stderr, "error: %s\n", s);
 }
-© 2019 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
