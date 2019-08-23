@@ -30,3 +30,4 @@ NUMBER [0-9]+
 /* Código C abaixo será incluído nos fontes. */
 
 int yywrap() {}
+

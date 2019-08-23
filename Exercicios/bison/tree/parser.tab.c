@@ -64,23 +64,30 @@
 /* Copy the first part of user declarations.  */
 #line 1 "parser.y" /* yacc.c:339  */
 
+
 /* Código C, use para #include, variáveis globais e constantes
  * este código ser adicionado no início do arquivo fonte em C
  * que será gerado.
  */
+
 #include <stdio.h>
 #include <stdlib.h>
+
+
 typedef struct No {
     char token[50];
     int num_filhos;
     struct No** filhos;
 } No;
+
+
 No* allocar_no();
 void liberar_no(No* no);
 void imprimir_arvore(No* raiz);
 No* novo_no(char[50], No**, int);
 
-#line 84 "parser.tab.c" /* yacc.c:339  */
+
+#line 91 "parser.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -131,13 +138,13 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 20 "parser.y" /* yacc.c:355  */
+#line 28 "parser.y" /* yacc.c:355  */
 
     int number;
     char simbolo[50];
     struct No* no;
 
-#line 141 "parser.tab.c" /* yacc.c:355  */
+#line 148 "parser.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -154,7 +161,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 158 "parser.tab.c" /* yacc.c:358  */
+#line 165 "parser.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -452,8 +459,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    45,    45,    46,    48,    50,    58,    67,    69,    76,
-      84
+       0,    57,    57,    58,    61,    63,    71,    81,    83,    90,
+      99
 };
 #endif
 
@@ -1227,13 +1234,13 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 46 "parser.y" /* yacc.c:1646  */
+#line 58 "parser.y" /* yacc.c:1646  */
     { imprimir_arvore((yyvsp[-1].no)); liberar_no((yyvsp[-1].no));}
-#line 1233 "parser.tab.c" /* yacc.c:1646  */
+#line 1240 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 50 "parser.y" /* yacc.c:1646  */
+#line 63 "parser.y" /* yacc.c:1646  */
     {
                             No** filhos = (No**) malloc(sizeof(No*)*3);
                             filhos[0] = (yyvsp[-2].no);
@@ -1241,11 +1248,11 @@ yyreduce:
                             filhos[2] = (yyvsp[0].no);
                             (yyval.no) = novo_no("exp", filhos, 3);
                         }
-#line 1245 "parser.tab.c" /* yacc.c:1646  */
+#line 1252 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 58 "parser.y" /* yacc.c:1646  */
+#line 71 "parser.y" /* yacc.c:1646  */
     {
                         No** filhos = (No**) malloc(sizeof(No*)*3);
                         filhos[0] = (yyvsp[-2].no);
@@ -1253,22 +1260,22 @@ yyreduce:
                         filhos[2] = (yyvsp[0].no);
                         (yyval.no) = novo_no("exp", filhos, 3);
     }
-#line 1257 "parser.tab.c" /* yacc.c:1646  */
+#line 1264 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 69 "parser.y" /* yacc.c:1646  */
+#line 83 "parser.y" /* yacc.c:1646  */
     {                             
                             No** filhos = (No**) malloc(sizeof(No*)*3);
                             filhos[0] = (yyvsp[-2].no);
                             filhos[1] = novo_no("*", NULL, 0);
                             filhos[2] = (yyvsp[0].no);
                             (yyval.no) = novo_no("termo", filhos, 3);}
-#line 1268 "parser.tab.c" /* yacc.c:1646  */
+#line 1275 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 76 "parser.y" /* yacc.c:1646  */
+#line 90 "parser.y" /* yacc.c:1646  */
     {                             
                             No** filhos = (No**) malloc(sizeof(No*)*3);
                             filhos[0] = (yyvsp[-2].no);
@@ -1276,19 +1283,19 @@ yyreduce:
                             filhos[2] = (yyvsp[0].no);
                             (yyval.no) = novo_no("termo", filhos, 3);
                             }
-#line 1280 "parser.tab.c" /* yacc.c:1646  */
+#line 1287 "parser.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 84 "parser.y" /* yacc.c:1646  */
+#line 99 "parser.y" /* yacc.c:1646  */
     {No** filhos = (No**) malloc(sizeof(No*));
             filhos[0] = novo_no((yyvsp[0].simbolo),NULL,0); 
             (yyval.no) = novo_no("fator", filhos, 1); }
-#line 1288 "parser.tab.c" /* yacc.c:1646  */
+#line 1295 "parser.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1292 "parser.tab.c" /* yacc.c:1646  */
+#line 1299 "parser.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1516,7 +1523,8 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 87 "parser.y" /* yacc.c:1906  */
+#line 102 "parser.y" /* yacc.c:1906  */
+
 
 /* Código C geral, será adicionado ao final do código fonte 
  * C gerado.
@@ -1534,18 +1542,25 @@ No* novo_no(char token[50], No** filhos, int num_filhos) {
     no->filhos = filhos;
     return no;
 }
+
 void imprimir_arvore(No* raiz) {
-    printf("(%s)", raiz->token);
+    printf("[%s ", raiz->token);
     int i;
-    printf(" -> ");
+    //printf(" -> ");
     for (i = 0; i < raiz->num_filhos; i++){  
         imprimir_arvore(raiz->filhos[i]);
-        if(raiz->filhos[i]->filhos == NULL) printf("(null)\n");
+        if(raiz->filhos[i]->filhos == NULL) printf("]");
     }
 }
+
+
+
 int main(int argc, char** argv) {
     yyparse();
 }
+
 yyerror(char *s) {
     fprintf(stderr, "error: %s\n", s);
 }
+
+
